@@ -1,8 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { srcGoods } from "../remote/data.js";
+
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 const initialState = {
-  goods: JSON.parse(window.localStorage.getItem("goods"))
+  goods: JSON.parse(window.localStorage.getItem("goods")) ?? srcGoods
 };
+
+//console.log(initialState);
 
 const goodsSlice = createSlice({
   name: "goods",
@@ -15,10 +19,14 @@ const goodsSlice = createSlice({
       const good = state.goods.find(good => good.id === id);
       const reviews = state.reviews.filter(review => review.goodId === id);
       return {good, reviews};
-    }
+    },
+    goodsData: createSelector(
+      (sliceState) => sliceState.goods,
+      (goods) => Object.values(goods)
+    )
   }
 })
 
 
-export const {allGoods, goodsByCat, goodById} = goodsSlice.selectors;
+export const {allGoods, goodsByCat, goodById, goodsData} = goodsSlice.selectors;
 export default goodsSlice.reducer;
