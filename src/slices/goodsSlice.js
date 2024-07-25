@@ -23,10 +23,14 @@ const goodsSlice = createSlice({
     goodsData: createSelector(
       (sliceState) => sliceState.goods,
       (goods) => Object.values(goods)
-    )
+    ),
+    goodsByText: (state, filterText) => {
+      console.log(filterText);
+      return state.goods.filter(good => good.name.toLowerCase().includes(filterText.toLowerCase()));
+    }
   }
 })
 
 
-export const {allGoods, goodsByCat, goodById, goodsData} = goodsSlice.selectors;
+export const {allGoods, goodsByCat, goodById, goodsData, goodsByText} = goodsSlice.selectors;
 export default goodsSlice.reducer;
