@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = ({
   cart: []
@@ -10,7 +10,12 @@ const cartSlice = createSlice({
   reducers: {
     addItem: {
       reducer: (state, action) => {
-        state.cart.push(action.payload);
+        const index = state.cart.findIndex(good => good.id === action.payload);
+        if (index > -1) {
+          state.cart[index].quantity++;
+        } else {
+          state.cart.push({id: action.payload, quantity: 1});
+        }
       },
       prepare: (id) => {
         return {payload: id};
@@ -26,10 +31,16 @@ const cartSlice = createSlice({
     }
   },
   selectors: {
-    allCart: (state) => state.cart
+    allCart: (state) => state.cart,
+    quantityInCart: (state, id) => {
+      const targetGood = state.cart.find(good => good.id === id);
+      console.log(targetGood);
+      if (!targetGood) return 0;
+      return targetGood.quantity;
+    }
   }
 })
 
 export const {addItem, removeItem} = cartSlice.actions;
-export const {allCart} = cartSlice.selectors;
+export const {allCart, quantityInCart} = cartSlice.selectors;
 export default cartSlice.reducer;
