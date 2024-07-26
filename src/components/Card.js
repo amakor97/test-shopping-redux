@@ -40,6 +40,10 @@ export default function Card({data}) {
         !loc.pathname.includes("cart") &&
         <p>left: {data.left - goodCount}</p>
       }
+      {
+        loc.pathname.includes("cart") &&
+        <p>cost: {goodCount * data.cost}</p>
+      }
       
       <button onClick={handleAddItem}>add to cart</button>
       <button onClick={handleRemoveItem}>remove completely</button>

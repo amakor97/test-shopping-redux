@@ -10,6 +10,10 @@ export default function CartPage() {
   const cart = useSelector(allCart);
   console.log(cart);
 
+  let sum = 0;
+
+  const totalSum = cart.reduce((acc, good) => acc + good.cost*good.quantity, sum);
+  console.log({totalSum});
 
   return (
     <div>
@@ -17,6 +21,9 @@ export default function CartPage() {
       {
         cart.map(good => <Card data={good}/>)
       }
+      
+      <p>total cart price: {totalSum}</p>
+
       <Link to="/">Go to catalog</Link>
     </div>
   );
