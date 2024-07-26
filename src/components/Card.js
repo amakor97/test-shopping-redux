@@ -14,7 +14,7 @@ export default function Card({data}) {
   console.log(goodCount);
 
   function handleAddItem() {
-    if (data.left > 0) {
+    if (data.left - goodCount > 0) {
       console.log("adding");
       dispatch(addItem({id: data.id, name: data.name, cost: data.cost, left: data.left}))
     }
@@ -38,7 +38,7 @@ export default function Card({data}) {
       }
       {
         !loc.pathname.includes("cart") &&
-        <p>left: {data.left}</p>
+        <p>left: {data.left - goodCount}</p>
       }
       
       <button onClick={handleAddItem}>add to cart</button>
