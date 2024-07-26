@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { quantityInCart } from "../slices/cartSlice";
 
-import { addItem, removeCompletely } from "../slices/cartSlice";
+import { addItem, removeCompletely, removeItem } from "../slices/cartSlice";
 
 import { useLocation } from "react-router";
 
@@ -24,6 +24,10 @@ export default function Card({data}) {
     dispatch(removeCompletely(data.id));
   }
 
+  function handleRemoveItem() {
+    dispatch(removeItem(data.id));
+  }
+
   return (
     <div>
       <h2>{data.name}</h2>
@@ -38,10 +42,8 @@ export default function Card({data}) {
       }
       
       <button onClick={handleAddItem}>add to cart</button>
-      <button onClick={handleRemoveCompletely}>remove completely</button>
+      <button onClick={handleRemoveItem}>remove completely</button>
       <br/>
-      <button>+</button>
-      <button>-</button>
       <br/>
     </div>
   );
