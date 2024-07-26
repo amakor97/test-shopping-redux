@@ -1,41 +1,37 @@
 import { Link } from "react-router-dom";
 
-import Card from "../components/Card.js";
+import Card from "../components/card/Card.js";
+
 
 import { useDispatch, useSelector } from "react-redux";
-
-import { allGoods, goodsData, goodsByText } from "../slices/goodsSlice.js";
-
+import { goodsData, goodsByText } from "../slices/goodsSlice.js";
 import { useState } from "react";
+import Header from "../components/header/Header.js";
+import GridCont from "../components/gridCont/GridCont.js";
+import SubHeader from "../components/subHeader/SubHeader.js";
+import Search from "../components/search/Search.js";
 
 export default function CatalogPage() {
-  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
 
-  const carsData = useSelector(state => goodsData(state));
   const fCarsData = useSelector(state => goodsByText(state, searchText));
-  console.log(carsData);
-  console.log(fCarsData);
 
   function handleSearchInputChange(e) {
-    console.log(e.target.value);
     setSearchText(e.target.value);
-    console.log(searchText);
   }
 
+  const shData = {
+    text: "Catalog",
+    href: "/cart",
+    linkText: "Go to cart"
+  };
 
   return (
     <div>
-      <h1>Catalog page</h1>
-      <br/>
-
-      <input type="text" name="filterText" placeholder="search..." onChange={handleSearchInputChange}/>
-
-      {
-        fCarsData.map(carData => <Card data={carData}/>)
-      }
-
-      <Link to="/cart">Go to cart</Link>
+      <Header/>
+      <SubHeader data={shData}/>
+      <Search onInputChange={handleSearchInputChange}/>
+      <GridCont dataArr={fCarsData}/>
     </div>
   );
 }

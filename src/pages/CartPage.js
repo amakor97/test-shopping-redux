@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { allCart } from "../slices/cartSlice";
 
-import Card from "../components/Card";
+import Card from "../components/card/Card";
 
 export default function CartPage() {
 

@@ -1,7 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { quantityInCart } from "../slices/cartSlice";
+import cs from "./card.module.css";
 
-import { addItem, removeCompletely, removeItem } from "../slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { quantityInCart } from "../../slices/cartSlice";
+
+import { addItem, removeCompletely, removeItem } from "../../slices/cartSlice";
 
 import { useLocation } from "react-router";
 
@@ -29,26 +31,27 @@ export default function Card({data}) {
   }
 
   return (
-    <div>
+    <div className={cs.card}>
       <h2>{data.name}</h2>
-      <p>cost: {data.cost}</p>
+      <img className={cs.img} src={data.path}/>
+      <p>Price: {data.cost}$</p>
       {
         loc.pathname.includes("cart") &&
-        <p>quantity: {goodCount}</p>
+        <p>Quantity: {goodCount}</p>
       }
       {
         !loc.pathname.includes("cart") &&
-        <p>left: {data.left - goodCount}</p>
+        <p>Left: {data.left - goodCount}</p>
       }
       {
         loc.pathname.includes("cart") &&
-        <p>cost: {goodCount * data.cost}</p>
+        <p>Price: {goodCount * data.cost}</p>
       }
       
-      <button onClick={handleAddItem}>add to cart</button>
-      <button onClick={handleRemoveItem}>remove completely</button>
-      <br/>
-      <br/>
+      <div className={cs.btnBlock}>
+        <button className={cs.btn} onClick={handleAddItem}>Add one car</button>
+        <button className={cs.btn} onClick={handleRemoveItem}>Remove one car</button>
+      </div>
     </div>
   );
 }
