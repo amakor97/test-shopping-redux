@@ -6,7 +6,7 @@ export default function GridCont({dataArr}) {
   return (
     <div className={gCStyles.gridCont}>
       {
-        dataArr.map(data => <Card data={data}/>)
+        dataArr.map(data => <Card key={data.id} data={data}/>)
       }
     </div>
   );

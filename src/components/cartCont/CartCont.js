@@ -6,7 +6,7 @@ export default function CartCont({dataArr}) {
   return (
     <div className={cc.cartCont}>
       {
-        dataArr.map(data => <CartCard data={data}/>)
+        dataArr.map(data => <CartCard key={data.id} data={data}/>)
       }
     </div>
   );

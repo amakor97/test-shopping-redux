@@ -24,7 +24,7 @@ export default function CartCard({data}) {
         <button className={cc.btn} onClick={handleAddItem} disabled={(data.left - goodCount <= 0)}>Add one car</button>
         <button className={cc.btn} onClick={handleRemoveItem} disabled={(goodCount <= 0)}>Remove one car</button>
         <p>Quantity: {goodCount}</p>
-        <p>Price: {goodCount * data.cost}</p>
+        <p>Price: {goodCount * data.cost}$</p>
       </div>
     </div>
   );
