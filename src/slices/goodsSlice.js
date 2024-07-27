@@ -6,7 +6,6 @@ const initialState = {
   goods: JSON.parse(window.localStorage.getItem("goods")) ?? srcGoods
 };
 
-//console.log(initialState);
 
 const goodsSlice = createSlice({
   name: "goods",
@@ -25,7 +24,6 @@ const goodsSlice = createSlice({
       (goods) => Object.values(goods)
     ),
     goodsByText: (state, filterText) => {
-      console.log(filterText);
       return state.goods.filter(good => good.name.toLowerCase().includes(filterText.toLowerCase()));
     }
   }

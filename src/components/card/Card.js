@@ -11,19 +11,12 @@ export default function Card({data}) {
   const dispatch = useDispatch();
   const loc = useLocation();
 
-
   const goodCount = useSelector(state => quantityInCart(state, data.id));
-  console.log(goodCount);
 
   function handleAddItem() {
     if (data.left - goodCount > 0) {
-      console.log("adding");
       dispatch(addItem({id: data.id, name: data.name, cost: data.cost, left: data.left}))
     }
-  }
-
-  function handleRemoveCompletely() {
-    dispatch(removeCompletely(data.id));
   }
 
   function handleRemoveItem() {
@@ -32,7 +25,7 @@ export default function Card({data}) {
 
   return (
     <div className={cs.card}>
-      <h2>{data.name}</h2>
+      <h3>{data.name}</h3>
       <img className={cs.img} src={data.path}/>
       <p>Price: {data.cost}$</p>
       {
@@ -49,8 +42,8 @@ export default function Card({data}) {
       }
       
       <div className={cs.btnBlock}>
-        <button className={cs.btn} onClick={handleAddItem}>Add one car</button>
-        <button className={cs.btn} onClick={handleRemoveItem}>Remove one car</button>
+        <button className={cs.btn} onClick={handleAddItem} disabled={(data.left - goodCount <= 0)}>Add one car</button>
+        <button className={cs.btn} onClick={handleRemoveItem} disabled={(goodCount <= 0)}>Remove one car</button>
       </div>
     </div>
   );

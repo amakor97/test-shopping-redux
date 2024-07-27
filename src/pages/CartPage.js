@@ -1,30 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
 import { allCart } from "../slices/cartSlice";
 
-import Card from "../components/card/Card";
+import Header from "../components/header/Header";
+import CartCont from "../components/cartCont/CartCont";
+import SubHeader from "../components/subHeader/SubHeader";
 
 export default function CartPage() {
-
   const cart = useSelector(allCart);
-  console.log(cart);
 
   let sum = 0;
 
   const totalSum = cart.reduce((acc, good) => acc + good.cost*good.quantity, sum);
-  console.log({totalSum});
+
+  const shData = {
+    text: "Cart page",
+    href: "/",
+    linkText: "Go to catalog"
+  };
 
   return (
     <div>
-      <h1>Cart page</h1>
-      {
-        cart.map(good => <Card data={good}/>)
-      }
+      <Header/>
+      <SubHeader data={shData}/>
+      <CartCont dataArr={cart}/>
       
-      <p>total cart price: {totalSum}</p>
+      <p style={{textAlign: "center", fontSize: "2rem", marginTop: "1rem"}}>total cart price: {totalSum}</p>
 
-      <Link to="/">Go to catalog</Link>
     </div>
   );
 }
